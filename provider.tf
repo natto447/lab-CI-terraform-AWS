@@ -11,6 +11,7 @@ terraform {
 provider "aws" {
   region = "us-east-1"
 
+# Evita validação de credenciais e acesso à AWS
   skip_credentials_validation = true
   skip_requesting_account_id  = true
 }
