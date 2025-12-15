@@ -1,36 +1,39 @@
-name: Terraform CI
+name: Terraform CI - Apenas validação
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   terraform:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checa o código
+      # 1️⃣ Checkout do repositório
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Configura Terraform
+      # 2️⃣ Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.5.7 
+          terraform_version: 1.5.7  # versão válida
 
       # 3️⃣ Inicializa Terraform
       - name: Terraform Init
-        run: terraform init
+        run: terraform init -backend=false  # sem backend AWS
 
-      # 4️⃣ Valida a configuração
+      # 4️⃣ Valida Terraform
       - name: Terraform Validate
         run: terraform validate
 
-      # 5️⃣ Planeja a aplicação
+      # 5️⃣ Formatação do código
+      - name: Terraform Fmt
+        run: terraform fmt -check
+
+      # 6️⃣ Plano Terraform sem credenciais
       - name: Terraform Plan
-        run: terraform plan -out=tfplan
+        run: terraform plan -out=tfplan -input=false
+
