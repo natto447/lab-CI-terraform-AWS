@@ -11,35 +11,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ Checkout do repositório
+      # 1️⃣ Pega o código
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2️⃣ Setup Terraform
+      # 2️⃣ Configura Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          terraform_version: 1.5.7  # versão válida
+          terraform_version: 1.5.7
 
-      # 3️⃣ Inicializa Terraform
+      # 3️⃣ Inicializa Terraform sem backend
       - name: Terraform Init
-        run: terraform init -backend=false  # sem backend AWS
+        run: terraform init -backend=false
 
-      # 4️⃣ Valida Terraform
+      # 4️⃣ Valida sintaxe
       - name: Terraform Validate
         run: terraform validate
 
-      # 5️⃣ Formatação do código
-      - name: Terraform Fmt
-        run: terraform fmt -check
-
-      # 6️⃣ Plano Terraform sem credenciais
-      - name: Terraform Plan
-        run: terraform plan -out=tfplan -input=false
+      # 5️⃣ Formatação
       - name: Terraform Fmt Check
         run: terraform fmt -check
 
-      # ou, para corrigir automaticamente:
-      - name: Terraform Fmt Apply
-        run: terraform fmt
+      # 6️⃣ Gera plano localmente (sem credenciais)
+      - name: Terraform Plan Local
+        run: terraform plan -out=tfplan -input=false -lock=false
 
