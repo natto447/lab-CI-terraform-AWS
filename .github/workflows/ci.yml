@@ -1,0 +1,36 @@
+name: Terraform CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checa o código
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 2️⃣ Configura Terraform
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.15.0
+
+      # 3️⃣ Inicializa Terraform
+      - name: Terraform Init
+        run: terraform init
+
+      # 4️⃣ Valida a configuração
+      - name: Terraform Validate
+        run: terraform validate
+
+      # 5️⃣ Planeja a aplicação
+      - name: Terraform Plan
+        run: terraform plan -out=tfplan
