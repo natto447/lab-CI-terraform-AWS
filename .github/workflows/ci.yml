@@ -1,4 +1,4 @@
-name: Terraform CI - Sem AWS
+name: Terraform CI - Local Plan
 
 on:
   push:
@@ -11,23 +11,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      # Checkout do repositório
+      - name: Checkout repository
         uses: actions/checkout@v3
 
+      # Setup Terraform
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.5.7
 
+      # Terraform Init sem backend
       - name: Terraform Init
         run: terraform init -backend=false
 
+      # Terraform Validate
       - name: Terraform Validate
         run: terraform validate
 
+      # Terraform Fmt Check
       - name: Terraform Fmt Check
         run: terraform fmt -check
 
+      # Terraform Plan Local
       - name: Terraform Plan Local
         run: terraform plan -out=tfplan -input=false -lock=false
 
