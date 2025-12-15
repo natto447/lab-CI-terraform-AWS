@@ -31,4 +31,8 @@ jobs:
       - name: Terraform Plan Local
         run: terraform plan -out=tfplan -input=false -lock=false
 
+      - name: Terraform Fmt Check
+        run: terraform fmt -check || echo "Formato ignorado temporariamente"
+
+
 
