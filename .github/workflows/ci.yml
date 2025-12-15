@@ -36,4 +36,10 @@ jobs:
       # 6️⃣ Plano Terraform sem credenciais
       - name: Terraform Plan
         run: terraform plan -out=tfplan -input=false
+      - name: Terraform Fmt Check
+        run: terraform fmt -check
+
+      # ou, para corrigir automaticamente:
+      - name: Terraform Fmt Apply
+        run: terraform fmt
 
