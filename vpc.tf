@@ -11,12 +11,12 @@ module "vpc" {
   enable_nat_gateway = false
   enable_vpn_gateway = false
 
-   public_subnet_tags = {
+  public_subnet_tags = {
     Name = "public-subnet"
   }
 
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = "dev"
   }
 }

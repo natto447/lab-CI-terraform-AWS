@@ -3,7 +3,7 @@ module "s3_bucket_lab" {
 
   bucket = "bucket-lab-natto-30-days"
 
-  acl    = "null"
+  acl = "null"
 
   versioning = {
     enabled = true
@@ -13,5 +13,5 @@ module "s3_bucket_lab" {
     Name        = "meu-bucket-lab"
     Environment = "Dev"
   }
-  
+
 }
